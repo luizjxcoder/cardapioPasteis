@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelaria da T'Juh - Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #1a0f08 50%, #2c1810 100%);
+            background-attachment: fixed;
+        }
+        
+        .texture-overlay {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(160, 82, 45, 0.1) 0%, transparent 50%);
+        }
+        
+        .menu-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 1px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            padding-top: 60px !important;
+            margin-top: 60px;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-icon {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-card:hover .floating-icon {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+        
+        .pastel-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #d4a574 0%, #c19a6b 100%);
+            font-size: 3rem;
+        }
+        
+        .drink-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            font-size: 2.5rem;
+        }
+        
+        .combo-icon {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+            font-size: 2.5rem;
+        }
+        
+        /* Responsividade para ícones */
+        @media (max-width: 768px) {
+            .pastel-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            .drink-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .combo-icon {
+                width: 95px;
+                height: 95px;
+                font-size: 2rem;
+            }
+            
+            .menu-card {
+                padding-top: 50px !important;
+                margin-top: 50px;
+            }
+            
+            .floating-icon {
+                top: -50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .pastel-icon {
+                width: 85px;
+                height: 85px;
+                font-size: 2rem;
+            }
+            
+            .drink-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .combo-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 1.8rem;
+            }
+            
+            .menu-card {
+                padding-top: 45px !important;
+                margin-top: 45px;
+            }
+            
+            .floating-icon {
+                top: -45px;
+            }
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: #f5deb3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        /* Responsividade completa */
+        @media (max-width: 1200px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+                max-height: 95vh;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 3rem !important;
+            }
+            
+            .grid {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .modal-content {
+                width: 98%;
+                margin: 1% auto;
+                border-radius: 15px;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            .price-tag {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .menu-card {
+                padding: 1rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            .modal-content {
+                border-radius: 10px;
+            }
+            
+            .modal-header {
+                padding: 12px;
+            }
+            
+            .modal-body {
+                padding: 12px;
+            }
+            
+            .price-tag {
+                padding: 4px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .menu-card {
+                padding: 0.75rem !important;
+            }
+            
+            .grid {
+                gap: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem !important;
+            }
+            
+            .menu-card {
+                padding: 0.5rem !important;
+            }
+            
+            .price-tag {
+                padding: 3px 8px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff6347 50%, #ff4500 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .product-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #d4a574 0%, #c19a6b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen texture-overlay">
+    <!-- Header -->
+    <header class="text-center py-8 md:py-12 relative px-4">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold section-title mb-4">Pastelaria da T'Juh</h1>
+        <p class="text-lg md:text-xl text-amber-200 font-light">Sabores autênticos, momentos especiais</p>
+        <div class="w-16 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-amber-600 mx-auto mt-4 md:mt-6"></div>
+        
+        <!-- Carrinho -->
+        <div class="fixed top-4 md:top-6 right-4 md:right-6 z-50">
+            <button onclick="openCheckout()" class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 md:p-4 rounded-full shadow-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 relative">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13v8a2 2 0 002 2h6a2 2 0 002-2v-8m-8 0V9a2 2 0 012-2h4a2 2 0 012 2v4.01"></path>
+                </svg>
+                <span id="cartCounter" class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full w-5 h-5 md:w-6 md:h-6 flex items-center justify-center hidden">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 md:px-6 pb-16">
+        <!-- Pastéis Section -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Nossos Pastéis</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Pastel de Carne -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('carne')">
+                    <div class="floating-icon pastel-icon">🥟</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel de Carne</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Carne moída temperada com cebola, alho e temperos especiais. Massa crocante e dourada.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 8,50</div>
+                        <button onclick="event.stopPropagation(); addToCart('carne')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pastel de Queijo -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('queijo')">
+                    <div class="floating-icon pastel-icon">🧀</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel de Queijo</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Queijo mussarela derretido em massa sequinha e crocante. Clássico irresistível.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 7,00</div>
+                        <button onclick="event.stopPropagation(); addToCart('queijo')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pastel de Frango -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('frango')">
+                    <div class="floating-icon pastel-icon">🐔</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel de Frango</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Frango desfiado com temperos caseiros, cebola e cheiro verde. Sabor tradicional.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 8,00</div>
+                        <button onclick="event.stopPropagation(); addToCart('frango')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pastel de Palmito -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('palmito')">
+                    <div class="floating-icon pastel-icon">🌿</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel de Palmito</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Palmito refogado com temperos especiais. Opção leve e saborosa para todos.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 9,00</div>
+                        <button onclick="event.stopPropagation(); addToCart('palmito')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pastel de Camarão -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('camarao')">
+                    <div class="floating-icon pastel-icon">🦐</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel de Camarão</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Camarões frescos refogados com alho, cebola e temperos. Sabor do mar na sua mesa.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 12,00</div>
+                        <button onclick="event.stopPropagation(); addToCart('camarao')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pastel Doce de Banana -->
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('banana')">
+                    <div class="floating-icon pastel-icon">🍌</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 mb-4 mx-auto max-w-xs flex-grow">
+                        <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Pastel Doce de Banana</h3>
+                        <p class="text-gray-600 text-xs md:text-sm leading-relaxed">Banana doce com canela e açúcar. Finalizado com açúcar cristal. Sobremesa perfeita.</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag">R$ 6,50</div>
+                        <button onclick="event.stopPropagation(); addToCart('banana')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bebidas Section -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Bebidas</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <!-- Refrigerantes -->
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                    <div class="floating-icon drink-icon">🥤</div>
+                    <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
+                        <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Refrigerantes</h3>
+                        <p class="text-gray-600 text-xs">Coca-Cola, Guaraná, Fanta Laranja, Sprite - Lata 350ml</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-xs md:text-sm">R$ 4,50</div>
+                        <button onclick="addToCart('refrigerante')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Suco Natural -->
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                    <div class="floating-icon drink-icon">🍊</div>
+                    <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
+                        <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Sucos Naturais</h3>
+                        <p class="text-gray-600 text-xs">Laranja, Limão, Maracujá, Acerola - 300ml fresquinho</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-xs md:text-sm">R$ 6,00</div>
+                        <button onclick="addToCart('suco')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Água -->
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                    <div class="floating-icon drink-icon">💧</div>
+                    <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
+                        <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Água Mineral</h3>
+                        <p class="text-gray-600 text-xs">Água mineral sem gás - Garrafa 500ml gelada</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-xs md:text-sm">R$ 2,50</div>
+                        <button onclick="addToCart('agua')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Café -->
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                    <div class="floating-icon drink-icon">☕</div>
+                    <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
+                        <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Café Expresso</h3>
+                        <p class="text-gray-600 text-xs">Café expresso tradicional, forte e aromático - 50ml</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-xs md:text-sm">R$ 3,00</div>
+                        <button onclick="addToCart('cafe')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combos Section -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Combos Especiais</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col">
+                    <div class="floating-icon combo-icon">🥟🥤</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-6 mb-4 mx-auto max-w-sm flex-grow">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-2 md:mb-3">Combo Tradicional</h3>
+                        <p class="text-gray-600 mb-2 text-sm md:text-base">2 Pastéis (carne ou queijo) + 1 Refrigerante</p>
+                        <p class="text-xs md:text-sm text-green-600 font-medium">Economize R$ 2,00!</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-base md:text-lg">R$ 18,00</div>
+                        <button onclick="addToCart('combo1')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col">
+                    <div class="floating-icon combo-icon">🥟🍊</div>
+                    <div class="bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-6 mb-4 mx-auto max-w-sm flex-grow">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-2 md:mb-3">Combo Natural</h3>
+                        <p class="text-gray-600 mb-2 text-sm md:text-base">1 Pastel de sua escolha + 1 Suco Natural</p>
+                        <p class="text-xs md:text-sm text-green-600 font-medium">Economize R$ 1,50!</p>
+                    </div>
+                    <div class="flex justify-center mt-auto relative">
+                        <div class="price-tag text-base md:text-lg">R$ 13,00</div>
+                        <button onclick="addToCart('combo2')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle" class="text-2xl font-bold">Produto</h2>
+            </div>
+            <div class="modal-body text-center">
+                <div id="modalImage" class="product-image">🥟</div>
+                <h3 id="modalName" class="text-2xl font-bold text-gray-800 mb-4">Nome do Produto</h3>
+                <p id="modalDescription" class="text-gray-600 mb-6 leading-relaxed">Descrição detalhada do produto...</p>
+                
+                <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Ingredientes:</h4>
+                    <p id="modalIngredients" class="text-gray-600 text-sm">Lista de ingredientes...</p>
+                </div>
+                
+
+                
+                <div class="flex justify-between items-center">
+                    <div class="price-tag text-xl" id="modalPrice">R$ 0,00</div>
+                    <button onclick="addToCartFromModal()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content max-w-2xl">
+            <div class="modal-header">
+                <span class="close" onclick="closeCheckout()">&times;</span>
+                <h2 class="text-2xl font-bold">Finalizar Pedido</h2>
+            </div>
+            <div class="modal-body">
+                <!-- Resumo do Pedido -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">📋 Resumo do Pedido</h3>
+                    <div id="checkoutItems" class="bg-gray-50 rounded-lg p-4 max-h-40 overflow-y-auto">
+                        <!-- Itens serão inseridos aqui -->
+                    </div>
+                    <div class="flex justify-between items-center mt-4 text-lg font-bold">
+                        <span>Total:</span>
+                        <span id="checkoutTotal" class="text-orange-600">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <!-- Formulário de Dados -->
+                <form id="orderForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="customerName" class="block text-sm font-medium text-gray-700 mb-2">
+                                👤 Nome Completo *
+                            </label>
+                            <input type="text" id="customerName" name="customerName" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                placeholder="Seu nome completo">
+                        </div>
+                        
+                        <div>
+                            <label for="customerPhone" class="block text-sm font-medium text-gray-700 mb-2">
+                                📞 Telefone *
+                            </label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                placeholder="(12) 99999-9999">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-medium text-gray-700 mb-3">📍 Endereço de Entrega *</h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="md:col-span-2">
+                                <label for="street" class="block text-xs font-medium text-gray-600 mb-1">Rua/Avenida *</label>
+                                <input type="text" id="street" name="street" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="Nome da rua ou avenida"
+                                    minlength="5" maxlength="100">
+                                <span id="streetError" class="text-red-500 text-xs hidden">Rua deve ter entre 5 e 100 caracteres</span>
+                            </div>
+                            
+                            <div>
+                                <label for="number" class="block text-xs font-medium text-gray-600 mb-1">Número *</label>
+                                <input type="text" id="number" name="number" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="123"
+                                    maxlength="10">
+                                <span id="numberError" class="text-red-500 text-xs hidden">Número inválido</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="complement" class="block text-xs font-medium text-gray-600 mb-1">Complemento</label>
+                                <input type="text" id="complement" name="complement"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="Apto, casa, bloco..."
+                                    maxlength="50">
+                            </div>
+                            
+                            <div>
+                                <label for="neighborhood" class="block text-xs font-medium text-gray-600 mb-1">Bairro *</label>
+                                <input type="text" id="neighborhood" name="neighborhood" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="Nome do bairro"
+                                    minlength="2" maxlength="50">
+                                <span id="neighborhoodError" class="text-red-500 text-xs hidden">Bairro deve ter entre 2 e 50 caracteres</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="city" class="block text-xs font-medium text-gray-600 mb-1">Cidade *</label>
+                                <input type="text" id="city" name="city" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="Nome da cidade"
+                                    minlength="2" maxlength="50">
+                                <span id="cityError" class="text-red-500 text-xs hidden">Cidade deve ter entre 2 e 50 caracteres e conter apenas letras</span>
+                            </div>
+                            
+                            <div>
+                                <label for="cep" class="block text-xs font-medium text-gray-600 mb-1">CEP *</label>
+                                <input type="text" id="cep" name="cep" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                                    placeholder="12345-678"
+                                    maxlength="9">
+                                <span id="cepError" class="text-red-500 text-xs hidden">CEP deve ter 8 dígitos (formato: 12345-678)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="orderNotes" class="block text-sm font-medium text-gray-700 mb-2">
+                            📝 Observações (opcional)
+                        </label>
+                        <textarea id="orderNotes" name="orderNotes" rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                            placeholder="Observações especiais, ponto de referência, preferências..."></textarea>
+                    </div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button type="button" onclick="closeCheckout()" 
+                            class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-full font-semibold hover:bg-gray-400 transition-all duration-300">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                            class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg">
+                            📱 Enviar via WhatsApp
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-amber-900 to-amber-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold mb-6">Pastelaria da T'Juh</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-semibold mb-3 text-amber-200">📍 Endereço</h4>
+                    <p class="text-sm">Rua das Delícias, 123<br>Centro - São Paulo, SP</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3 text-amber-200">📞 Contato</h4>
+                    <p class="text-sm">(11) 99999-9999<br>contato@pastelariadatjuh.com.br</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3 text-amber-200">🕒 Horário</h4>
+                    <p class="text-sm">Segunda a Sábado: 8h às 20h<br>Domingo: 8h às 18h</p>
+                </div>
+            </div>
+            <div class="border-t border-amber-700 mt-8 pt-6">
+                <p class="text-sm text-amber-200">© 2024 Pastelaria da T'Juh - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = {
+            carne: {
+                name: 'Pastel de Carne',
+                icon: '🥟',
+                price: 'R$ 8,50',
+                priceValue: 8.50,
+                description: 'Delicioso pastel recheado com carne moída temperada com cebola, alho e temperos especiais da casa. Massa crocante e dourada, preparada na hora.',
+                ingredients: 'Carne moída bovina, cebola, alho, sal, pimenta-do-reino, cheiro verde, óleo, farinha de trigo, água, sal.',
+                nutrition: 'Calorias: 280 kcal | Proteínas: 15g | Carboidratos: 25g | Gorduras: 12g | Fibras: 2g'
+            },
+            queijo: {
+                name: 'Pastel de Queijo',
+                icon: '🧀',
+                price: 'R$ 7,00',
+                priceValue: 7.00,
+                description: 'Clássico pastel com queijo mussarela derretido em massa sequinha e crocante. Simplicidade e sabor em cada mordida.',
+                ingredients: 'Queijo mussarela, farinha de trigo, água, sal, óleo para fritura.',
+                nutrition: 'Calorias: 250 kcal | Proteínas: 12g | Carboidratos: 22g | Gorduras: 14g | Cálcio: 200mg'
+            },
+            frango: {
+                name: 'Pastel de Frango',
+                icon: '🐔',
+                price: 'R$ 8,00',
+                priceValue: 8.00,
+                description: 'Frango desfiado temperado com temperos caseiros, cebola e cheiro verde. Uma explosão de sabor tradicional brasileiro.',
+                ingredients: 'Peito de frango desfiado, cebola, alho, cheiro verde, sal, pimenta, farinha de trigo, água, óleo.',
+                nutrition: 'Calorias: 270 kcal | Proteínas: 18g | Carboidratos: 24g | Gorduras: 10g | Fibras: 1g'
+            },
+            palmito: {
+                name: 'Pastel de Palmito',
+                icon: '🌿',
+                price: 'R$ 9,00',
+                priceValue: 9.00,
+                description: 'Palmito refogado com temperos especiais da casa. Opção leve, saborosa e nutritiva para todos os paladares.',
+                ingredients: 'Palmito em conserva, cebola, alho, azeite, sal, pimenta, cheiro verde, farinha de trigo, água.',
+                nutrition: 'Calorias: 220 kcal | Proteínas: 8g | Carboidratos: 26g | Gorduras: 9g | Fibras: 4g'
+            },
+            camarao: {
+                name: 'Pastel de Camarão',
+                icon: '🦐',
+                price: 'R$ 12,00',
+                priceValue: 12.00,
+                description: 'Camarões frescos refogados com alho, cebola e temperos especiais. O sabor do mar na sua mesa com qualidade premium.',
+                ingredients: 'Camarão médio limpo, alho, cebola, azeite, sal, pimenta, cheiro verde, farinha de trigo, água.',
+                nutrition: 'Calorias: 290 kcal | Proteínas: 20g | Carboidratos: 23g | Gorduras: 12g | Ômega-3: 0,5g'
+            },
+            banana: {
+                name: 'Pastel Doce de Banana',
+                icon: '🍌',
+                price: 'R$ 6,50',
+                priceValue: 6.50,
+                description: 'Banana doce com canela e açúcar, finalizado com açúcar cristal. A sobremesa perfeita para adoçar seu dia.',
+                ingredients: 'Banana nanica madura, açúcar cristal, canela em pó, farinha de trigo, água, sal, óleo.',
+                nutrition: 'Calorias: 240 kcal | Proteínas: 4g | Carboidratos: 35g | Gorduras: 8g | Potássio: 300mg'
+            },
+            refrigerante: {
+                name: 'Refrigerante',
+                icon: '🥤',
+                price: 'R$ 4,50',
+                priceValue: 4.50,
+                description: 'Coca-Cola, Guaraná, Fanta Laranja, Sprite - Lata 350ml'
+            },
+            suco: {
+                name: 'Suco Natural',
+                icon: '🍊',
+                price: 'R$ 6,00',
+                priceValue: 6.00,
+                description: 'Laranja, Limão, Maracujá, Acerola - 300ml fresquinho'
+            },
+            agua: {
+                name: 'Água Mineral',
+                icon: '💧',
+                price: 'R$ 2,50',
+                priceValue: 2.50,
+                description: 'Água mineral sem gás - Garrafa 500ml gelada'
+            },
+            cafe: {
+                name: 'Café Expresso',
+                icon: '☕',
+                price: 'R$ 3,00',
+                priceValue: 3.00,
+                description: 'Café expresso tradicional, forte e aromático - 50ml'
+            },
+            combo1: {
+                name: 'Combo Tradicional',
+                icon: '🥟🥤',
+                price: 'R$ 18,00',
+                priceValue: 18.00,
+                description: '2 Pastéis (carne ou queijo) + 1 Refrigerante'
+            },
+            combo2: {
+                name: 'Combo Natural',
+                icon: '🥟🍊',
+                price: 'R$ 13,00',
+                priceValue: 13.00,
+                description: '1 Pastel de sua escolha + 1 Suco Natural'
+            }
+        };
+
+        let cart = [];
+        let currentModalProduct = null;
+
+        function addToCart(productId) {
+            const product = products[productId];
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    icon: product.icon,
+                    price: product.priceValue,
+                    quantity: 1
+                });
+            }
+
+            updateCartDisplay();
+            showCartNotification(product.name);
+        }
+
+        function addToCartFromModal() {
+            if (currentModalProduct) {
+                addToCart(currentModalProduct);
+                closeModal();
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartCounter = document.getElementById('cartCounter');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            // Atualizar contador
+            if (totalItems > 0) {
+                cartCounter.textContent = totalItems;
+                cartCounter.classList.remove('hidden');
+            } else {
+                cartCounter.classList.add('hidden');
+            }
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio! Adicione alguns itens antes de finalizar o pedido.');
+                return;
+            }
+
+            // Atualizar resumo do pedido
+            const checkoutItems = document.getElementById('checkoutItems');
+            const checkoutTotal = document.getElementById('checkoutTotal');
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            checkoutItems.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-lg">${item.icon}</span>
+                        <span class="font-medium">${item.name}</span>
+                        <span class="text-gray-600">x${item.quantity}</span>
+                    </div>
+                    <span class="font-semibold">R$ ${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+            `).join('');
+
+            checkoutTotal.textContent = `R$ ${totalPrice.toFixed(2)}`;
+
+            // Mostrar modal
+            document.getElementById('checkoutModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Limpar formulário
+            document.getElementById('orderForm').reset();
+        }
+
+        function showCartNotification(productName) {
+            // Criar notificação temporária
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-6 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            notification.textContent = `${productName} adicionado ao carrinho!`;
+            document.body.appendChild(notification);
+
+            // Mostrar notificação
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            // Remover notificação
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+
+        // Validações em tempo real
+        function setupValidation() {
+            // Validação do CEP
+            document.getElementById('cep').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 5) {
+                    value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+                }
+                e.target.value = value;
+                
+                const errorSpan = document.getElementById('cepError');
+                if (value.length > 0 && (value.replace('-', '').length !== 8 || !/^\d{5}-?\d{3}$/.test(value))) {
+                    errorSpan.classList.remove('hidden');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    errorSpan.classList.add('hidden');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+
+            // Validação do telefone
+            document.getElementById('customerPhone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value.length <= 10) {
+                        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                    } else {
+                        value = value.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+                    }
+                }
+                e.target.value = value;
+            });
+
+            // Validação da cidade (apenas letras e espaços)
+            document.getElementById('city').addEventListener('input', function(e) {
+                const value = e.target.value;
+                const errorSpan = document.getElementById('cityError');
+                
+                if (value.length > 0 && !/^[a-zA-ZÀ-ÿ\s]+$/.test(value)) {
+                    errorSpan.classList.remove('hidden');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    errorSpan.classList.add('hidden');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+
+            // Validação do número (aceita números e "S/N")
+            document.getElementById('number').addEventListener('input', function(e) {
+                const value = e.target.value.toUpperCase();
+                const errorSpan = document.getElementById('numberError');
+                
+                if (value.length > 0 && !/^(\d+[A-Z]?|S\/N)$/.test(value)) {
+                    errorSpan.classList.remove('hidden');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    errorSpan.classList.add('hidden');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+
+            // Validação da rua
+            document.getElementById('street').addEventListener('input', function(e) {
+                const value = e.target.value;
+                const errorSpan = document.getElementById('streetError');
+                
+                if (value.length > 0 && (value.length < 5 || value.length > 100)) {
+                    errorSpan.classList.remove('hidden');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    errorSpan.classList.add('hidden');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+
+            // Validação do bairro
+            document.getElementById('neighborhood').addEventListener('input', function(e) {
+                const value = e.target.value;
+                const errorSpan = document.getElementById('neighborhoodError');
+                
+                if (value.length > 0 && (value.length < 2 || value.length > 50)) {
+                    errorSpan.classList.remove('hidden');
+                    e.target.classList.add('border-red-500');
+                } else {
+                    errorSpan.classList.add('hidden');
+                    e.target.classList.remove('border-red-500');
+                }
+            });
+        }
+
+        // Função para validar todos os campos
+        function validateForm() {
+            let isValid = true;
+            const errors = [];
+
+            // Validar nome
+            const name = document.getElementById('customerName').value.trim();
+            if (!name || name.length < 2) {
+                errors.push('Nome deve ter pelo menos 2 caracteres');
+                isValid = false;
+            }
+
+            // Validar telefone
+            const phone = document.getElementById('customerPhone').value.replace(/\D/g, '');
+            if (!phone || phone.length < 10 || phone.length > 11) {
+                errors.push('Telefone deve ter 10 ou 11 dígitos');
+                isValid = false;
+            }
+
+            // Validar endereço
+            const street = document.getElementById('street').value.trim();
+            const number = document.getElementById('number').value.trim();
+            const neighborhood = document.getElementById('neighborhood').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+
+            if (!street || street.length < 5) {
+                errors.push('Rua deve ter pelo menos 5 caracteres');
+                isValid = false;
+            }
+
+            if (!number || !/^(\d+[A-Z]?|S\/N)$/i.test(number)) {
+                errors.push('Número inválido (use números ou "S/N")');
+                isValid = false;
+            }
+
+            if (!neighborhood || neighborhood.length < 2) {
+                errors.push('Bairro deve ter pelo menos 2 caracteres');
+                isValid = false;
+            }
+
+            if (!city || !/^[a-zA-ZÀ-ÿ\s]+$/.test(city)) {
+                errors.push('Cidade deve conter apenas letras');
+                isValid = false;
+            }
+
+            if (!cep || cep.length !== 8) {
+                errors.push('CEP deve ter exatamente 8 dígitos');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                alert('Erros encontrados:\n• ' + errors.join('\n• '));
+            }
+
+            return isValid;
+        }
+
+        // Manipular envio do formulário
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerPhone = document.getElementById('customerPhone').value;
+            const street = document.getElementById('street').value.trim();
+            const number = document.getElementById('number').value.trim();
+            const complement = document.getElementById('complement').value.trim();
+            const neighborhood = document.getElementById('neighborhood').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const cep = document.getElementById('cep').value;
+            const orderNotes = document.getElementById('orderNotes').value.trim();
+            
+            // Montar endereço completo
+            let fullAddress = `${street}, ${number}`;
+            if (complement) fullAddress += `, ${complement}`;
+            fullAddress += `\n${neighborhood} - ${city}\nCEP: ${cep}`;
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const orderDate = new Date().toLocaleString('pt-BR');
+            
+            let orderText = `🍽️ *PEDIDO - PASTELARIA DA T'JUH*\n\n`;
+            orderText += `📅 Data: ${orderDate}\n\n`;
+            orderText += `👤 *DADOS DO CLIENTE:*\n`;
+            orderText += `Nome: ${customerName}\n`;
+            orderText += `Telefone: ${customerPhone}\n`;
+            orderText += `Endereço: ${fullAddress}\n\n`;
+            
+            orderText += `📋 *ITENS DO PEDIDO:*\n`;
+            cart.forEach(item => {
+                orderText += `• ${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            orderText += `\n💰 *TOTAL: R$ ${totalPrice.toFixed(2)}*\n\n`;
+            
+            if (orderNotes) {
+                orderText += `📝 *OBSERVAÇÕES:*\n${orderNotes}\n\n`;
+            }
+            
+            orderText += `Obrigado pela preferência! 🙏`;
+
+            // Criar link do WhatsApp com o número fornecido
+            const phoneNumber = '5512991705830';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderText)}`;
+            
+            // Abrir WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Limpar carrinho e fechar modal após envio
+            cart = [];
+            updateCartDisplay();
+            closeCheckout();
+            
+            alert('Pedido enviado! Você será redirecionado para o WhatsApp para finalizar.');
+        });
+
+        function openModal(productId) {
+            const product = products[productId];
+            if (!product) return;
+
+            currentModalProduct = productId;
+
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalImage').textContent = product.icon;
+            document.getElementById('modalName').textContent = product.name;
+            document.getElementById('modalDescription').textContent = product.description;
+            document.getElementById('modalIngredients').textContent = product.ingredients || product.description;
+
+            document.getElementById('modalPrice').textContent = product.price;
+
+            document.getElementById('productModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentModalProduct = null;
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Inicializar validações quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            setupValidation();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ef81bfd5bc09d3',t:'MTc1NTE2NDU5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
