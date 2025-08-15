@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastelaria da T'Juh - Menu</title>
+    <title>Delícias da T'Juh - Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
@@ -28,8 +28,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            padding-top: 60px !important;
-            margin-top: 60px;
+            padding-top: 80px !important;
+            margin-top: 70px;
         }
         
         .menu-card:hover {
@@ -41,7 +41,7 @@
         
         .floating-icon {
             position: absolute;
-            top: -60px;
+            top: -70px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50%;
@@ -100,16 +100,53 @@
             }
             
             .menu-card {
-                padding-top: 50px !important;
-                margin-top: 50px;
+                padding-top: 65px !important;
+                margin-top: 60px;
             }
             
             .floating-icon {
-                top: -50px;
+                top: -40px;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 720px) {
+            .menu-card {
+                padding-top: 20px !important;
+                padding-left: 100px !important;
+                margin-top: 20px;
+                position: relative;
+            }
+            
+            .floating-icon {
+                top: 50%;
+                left: -5px;
+                transform: translateY(-50%);
+            }
+            
+            .menu-card:hover .floating-icon {
+                transform: translateY(-50%) translateX(-5px);
+            }
+            
+            .pastel-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .drink-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .combo-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 610px) {
             .pastel-icon {
                 width: 85px;
                 height: 85px;
@@ -129,12 +166,12 @@
             }
             
             .menu-card {
-                padding-top: 45px !important;
-                margin-top: 45px;
+                padding-top: 55px !important;
+                margin-top: 50px;
             }
             
             .floating-icon {
-                top: -45px;
+                top: -10px;
             }
         }
         
@@ -150,7 +187,7 @@
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            color: #f5deb3;
+            color: #ac7104;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
@@ -350,8 +387,8 @@
 <body class="min-h-screen texture-overlay">
     <!-- Header -->
     <header class="text-center py-8 md:py-12 relative px-4">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold section-title mb-4">Pastelaria da T'Juh</h1>
-        <p class="text-lg md:text-xl text-amber-200 font-light">Sabores autênticos, momentos especiais</p>
+        <h1 class="text-4xl sm:text-xl md:text-6xl font-bold section-title mb-4">Delícias da T'Juh</h1>
+        <p class="text-lg md:text-xl text-amber-800 font-light">Sabores autênticos, momentos especiais</p>
         <div class="w-16 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-amber-600 mx-auto mt-4 md:mt-6"></div>
         
         <!-- Carrinho -->
@@ -368,7 +405,7 @@
     <div class="container mx-auto px-4 md:px-6 pb-16">
         <!-- Pastéis Section -->
         <section class="mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Nossos Pastéis</h2>
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Menu Completo</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Pastel de Carne -->
                 <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('carne')">
@@ -467,7 +504,7 @@
             <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Bebidas</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 <!-- Refrigerantes -->
-                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col" onclick="openModal('refrigerante')">
                     <div class="floating-icon drink-icon">🥤</div>
                     <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
                         <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Refrigerantes</h3>
@@ -475,14 +512,14 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-xs md:text-sm">R$ 4,50</div>
-                        <button onclick="addToCart('refrigerante')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('refrigerante')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
                             +
                         </button>
                     </div>
                 </div>
 
                 <!-- Suco Natural -->
-                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col" onclick="openModal('suco')">
                     <div class="floating-icon drink-icon">🍊</div>
                     <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
                         <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Sucos Naturais</h3>
@@ -490,14 +527,14 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-xs md:text-sm">R$ 6,00</div>
-                        <button onclick="addToCart('suco')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('suco')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
                             +
                         </button>
                     </div>
                 </div>
 
                 <!-- Água -->
-                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col" onclick="openModal('agua')">
                     <div class="floating-icon drink-icon">💧</div>
                     <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
                         <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Água Mineral</h3>
@@ -505,14 +542,14 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-xs md:text-sm">R$ 2,50</div>
-                        <button onclick="addToCart('agua')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('agua')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
                             +
                         </button>
                     </div>
                 </div>
 
                 <!-- Café -->
-                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col">
+                <div class="menu-card rounded-xl md:rounded-[2rem] p-3 md:p-6 text-center flex flex-col" onclick="openModal('cafe')">
                     <div class="floating-icon drink-icon">☕</div>
                     <div class="bg-gray-50 rounded-lg md:rounded-2xl p-2 md:p-3 mb-3 md:mb-4 mx-auto flex-grow">
                         <h3 class="text-sm md:text-lg font-semibold text-gray-800 mb-1 md:mb-2">Café Expresso</h3>
@@ -520,7 +557,7 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-xs md:text-sm">R$ 3,00</div>
-                        <button onclick="addToCart('cafe')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('cafe')" class="absolute -bottom-1 -right-1 bg-gradient-to-r from-green-500 to-green-600 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-sm md:text-lg hover:scale-110">
                             +
                         </button>
                     </div>
@@ -532,7 +569,7 @@
         <section class="mb-12 md:mb-16">
             <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-8 md:mb-12">Combos Especiais</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col">
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('combo1')">
                     <div class="floating-icon combo-icon">🥟🥤</div>
                     <div class="bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-6 mb-4 mx-auto max-w-sm flex-grow">
                         <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-2 md:mb-3">Combo Tradicional</h3>
@@ -541,13 +578,13 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-base md:text-lg">R$ 18,00</div>
-                        <button onclick="addToCart('combo1')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('combo1')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
                             +
                         </button>
                     </div>
                 </div>
 
-                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col">
+                <div class="menu-card rounded-2xl md:rounded-[2rem] p-4 md:p-8 text-center flex flex-col" onclick="openModal('combo2')">
                     <div class="floating-icon combo-icon">🥟🍊</div>
                     <div class="bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-6 mb-4 mx-auto max-w-sm flex-grow">
                         <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-2 md:mb-3">Combo Natural</h3>
@@ -556,7 +593,7 @@
                     </div>
                     <div class="flex justify-center mt-auto relative">
                         <div class="price-tag text-base md:text-lg">R$ 13,00</div>
-                        <button onclick="addToCart('combo2')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
+                        <button onclick="event.stopPropagation(); addToCart('combo2')" class="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white w-8 h-8 md:w-10 md:h-10 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg flex items-center justify-center text-lg md:text-xl hover:scale-110">
                             +
                         </button>
                     </div>
@@ -587,7 +624,7 @@
                 <div class="flex justify-between items-center">
                     <div class="price-tag text-xl" id="modalPrice">R$ 0,00</div>
                     <button onclick="addToCartFromModal()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg">
-                        Adicionar ao Carrinho
+                        Adicionar
                     </button>
                 </div>
             </div>
@@ -810,42 +847,54 @@
                 icon: '🥤',
                 price: 'R$ 4,50',
                 priceValue: 4.50,
-                description: 'Coca-Cola, Guaraná, Fanta Laranja, Sprite - Lata 350ml'
+                description: 'Refrigerantes gelados em lata de 350ml. Opções disponíveis: Coca-Cola, Guaraná Antarctica, Fanta Laranja e Sprite. Perfeitos para acompanhar seus pastéis.',
+                ingredients: 'Água gaseificada, açúcar, concentrado, acidulante, conservante, aromatizante natural.',
+                nutrition: 'Calorias: 140 kcal | Carboidratos: 37g | Sódio: 15mg | Sem gorduras'
             },
             suco: {
                 name: 'Suco Natural',
                 icon: '🍊',
                 price: 'R$ 6,00',
                 priceValue: 6.00,
-                description: 'Laranja, Limão, Maracujá, Acerola - 300ml fresquinho'
+                description: 'Sucos naturais fresquinhos de 300ml, preparados na hora com frutas selecionadas. Sabores: Laranja, Limão, Maracujá e Acerola. Rico em vitaminas e sem conservantes.',
+                ingredients: 'Polpa de fruta natural, água filtrada, açúcar cristal (opcional).',
+                nutrition: 'Calorias: 80-120 kcal | Vitamina C: 60mg | Fibras: 2g | Antioxidantes naturais'
             },
             agua: {
                 name: 'Água Mineral',
                 icon: '💧',
                 price: 'R$ 2,50',
                 priceValue: 2.50,
-                description: 'Água mineral sem gás - Garrafa 500ml gelada'
+                description: 'Água mineral natural sem gás em garrafa de 500ml, sempre gelada. Fonte natural com minerais essenciais para hidratação perfeita.',
+                ingredients: 'Água mineral natural, sais minerais naturais (cálcio, magnésio, potássio).',
+                nutrition: 'Calorias: 0 kcal | Cálcio: 15mg | Magnésio: 8mg | Potássio: 2mg'
             },
             cafe: {
                 name: 'Café Expresso',
                 icon: '☕',
                 price: 'R$ 3,00',
                 priceValue: 3.00,
-                description: 'Café expresso tradicional, forte e aromático - 50ml'
+                description: 'Café expresso tradicional de 50ml, preparado com grãos selecionados e torrados na medida certa. Forte, aromático e encorpado, perfeito para finalizar sua refeição.',
+                ingredients: 'Grãos de café arábica torrados e moídos na hora, água filtrada.',
+                nutrition: 'Calorias: 5 kcal | Cafeína: 80mg | Antioxidantes naturais | Sem açúcar'
             },
             combo1: {
                 name: 'Combo Tradicional',
                 icon: '🥟🥤',
                 price: 'R$ 18,00',
                 priceValue: 18.00,
-                description: '2 Pastéis (carne ou queijo) + 1 Refrigerante'
+                description: 'Combo perfeito para matar a fome! Inclui 2 pastéis deliciosos (carne ou queijo) + 1 refrigerante gelado de sua escolha. Economize R$ 2,00 nesta combinação especial.',
+                ingredients: 'Conforme pastéis escolhidos + refrigerante selecionado.',
+                nutrition: 'Combo completo e satisfatório - valores nutricionais conforme itens selecionados'
             },
             combo2: {
                 name: 'Combo Natural',
                 icon: '🥟🍊',
                 price: 'R$ 13,00',
                 priceValue: 13.00,
-                description: '1 Pastel de sua escolha + 1 Suco Natural'
+                description: 'Opção mais natural e saudável! 1 pastel de sua escolha + 1 suco natural fresquinho. Perfeito equilíbrio entre sabor e saúde. Economize R$ 1,50!',
+                ingredients: 'Conforme pastel escolhido + suco natural selecionado.',
+                nutrition: 'Combo balanceado com vitaminas naturais - valores conforme itens selecionados'
             }
         };
 
@@ -1204,5 +1253,5 @@
             setupValidation();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ef81bfd5bc09d3',t:'MTc1NTE2NDU5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f5f920c2f409d3',t:'MTc1NTIzMjM5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
